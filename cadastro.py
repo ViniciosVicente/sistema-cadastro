@@ -47,8 +47,6 @@ def cadastrar_usuario():
                 idade_usuario = int(input("Idade:"));
                 if (idade_usuario < 0):
                     print("ERRO: idade usuário não pode ser negativa!! Tente novamente");
-                    if not idade_usuario:
-                        print("ERRO: Idade usuário não pode ser vazio!! Tente novamente ")
                 else:
                     break;   
             except ValueError:
@@ -57,7 +55,7 @@ def cadastrar_usuario():
         while True:
             try:
                 email_usuario = input("Email:");
-                if '@'not in email_usuario:
+                if '@'not in email_usuario or '.' not in email_usuario:
                     print("ERRO: Email inválido");
                 else:
                     break;
@@ -73,63 +71,67 @@ def cadastrar_usuario():
         elif(cadastrar_novamente == 2):
                 break;
         
-           
-            
 def listar_usuarios():
-    print("---USUÁRIOS CADASTRADOS---\n")
-    for usuario in dados_usuario_lista:
-            print("--" * 10);
-            print(f"Nome: {usuario['nome']}\nIdade: {usuario['idade']}\nEmail: {usuario['email']}\n");
-    
+    if not dados_usuario_lista:
+        print("Nenhum usuário cadastrado.")
+        return
     while True:
+        print("---USUÁRIOS CADASTRADOS---\n")
+        print("\n" * 2);
+        for usuario in dados_usuario_lista:
+                print("--" * 10);
+                print(f"Nome: {usuario['nome']}\nIdade: {usuario['idade']}\nEmail: {usuario['email']}\n");
+        
         try:    
             opcoes_visualizar = int(input("Deseja sair?\n\n1 - Visualizar novamente\n2 - Sair\n:"));
             if(opcoes_visualizar == 1):
-                listar_usuarios()
-                break;
+                    continue
             elif(opcoes_visualizar == 2):
-                break;
+                    break;
             else:
-                print("Digito não corresponde as opções! Digite novamente.\n")
-                
+                    print("Digito não corresponde as opções! Digite novamente.\n")
         except ValueError:
-            print("ERRO: Valor incorreto! Digite Novamente\n")
+                print("ERRO: Valor incorreto! Digite Novamente\n")
             
     
 def remover_usuario():
    print("---Remover usuário---\n")
    
-   
-   for usuario_remover in dados_usuario_lista:
-        print(f"ID: {usuario_remover['id']}\nNome: {usuario_remover['nome']}\n");
-   try:
-        remover_id = int(input("Digite o ID do usuário que deseja remover: "));
-        usuario_antes = len(dados_usuario_lista);
+  
+   while True:
+        if not dados_usuario_lista:
+            print("Nenhum usuário cadastrado.")
+            return
+        for usuario_remover in dados_usuario_lista:
+                print(f"ID: {usuario_remover['id']}\nNome: {usuario_remover['nome']}\n");
+                
+        try:
+                remover_id = int(input("Digite o ID do usuário que deseja remover: "));
+                usuario_antes = len(dados_usuario_lista);
+
+                for contador, usuarios_listas in enumerate(dados_usuario_lista):
+                    if usuarios_listas.get('id') == remover_id:
+                        dados_usuario_lista.pop(contador)
+                        break;        
+    
+                if len(dados_usuario_lista) < usuario_antes:    
+                    print(f"Usuário {remover_id} removido!!\n")
+                else:
+                    print(f"ERRO: Usuário com ID {remover_id} não foi encontrado!")
+        except ValueError:
+                print("ERRO: Digite um valor válido de ID\n")
+                    
+        try:
+            opcoes_remover = int(input("\nDeseja sair?\n1 - Remover outro usuário\n2 - Sair\n:"))
+            if(opcoes_remover == 1):
+                continue
+            elif(opcoes_remover == 2):
+                break;
+            else: 
+                print("ERRO: Valor não corresponde às opções! Digite novamente.");
+        except ValueError:
+                        print("ERRO: Valor incorreto! Digite Novamente\n")
         
-        for contador, usuarios_listas in enumerate(dados_usuario_lista):
-            if usuarios_listas.get('id') == remover_id:
-                dados_usuario_lista.pop(contador)
-                break;        
-        
-        if len(dados_usuario_lista) < usuario_antes:    
-            print(f"Usuário {remover_id} removido!!\n")
-        else:
-            print(f"ERRO: Usuário com ID {remover_id} não foi encontrado!")
-            
-        while True:
-            try:
-                opcoes_remover = int(input("\nDeseja sair?\n1 - Remover outro usuário\n2 - Sair\n:"))
-                if(opcoes_remover == 1):
-                    remover_usuario();
-                    break;
-                elif(opcoes_remover == 2):
-                    break;
-                else: 
-                    print("ERRO: Valor não corresponde às opções! Digite novamente.");
-            except ValueError:
-                print("ERRO: Valor incorreto! Digite Novamente\n")
-   except ValueError:
-           print("ERRO: Digite um valor válido de ID\n")
        
 
 sistema()
