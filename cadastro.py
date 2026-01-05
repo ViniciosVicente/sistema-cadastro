@@ -8,11 +8,11 @@ def sistema():
         try:
             opcoes = int(input("Opções:\n1 - Cadastrar usuário\n2 - Usuários cadastrados\n3 - Remove usuário cadastrado\n4 - Sair\n:"));
             if(opcoes == 1):
-                cadastrarUsuario();
+                cadastrar_usuario();
             elif(opcoes == 2):
-                usuarioCadastrados();
+                listar_usuarios();
             elif(opcoes == 3): 
-                removerUsuario();
+                remover_usuario();
             elif(opcoes == 4):
                 break;
             else:
@@ -26,30 +26,56 @@ def gerar_novo_id():
         if(usuario_gerarID['id'] > maior_id):
             maior_id = usuario_gerarID['id'];
     return maior_id + 1;
-def cadastrarUsuario():
+def cadastrar_usuario():
     
     print("--- CADASTRO USUÁRIO ---\n")
     while True:
         id_usuario = gerar_novo_id()
-    
-        try:
-            nome_usuario = input("\nNome:");
-            idade_usuario = int(input("Idade:"));
-            email_usuario = input("Email:");
-            dados_usuario= {'id': id_usuario,'nome': nome_usuario,'idade': idade_usuario,'email': email_usuario}
-            dados_usuario_lista.append(dados_usuario)
-            print("Usuário cadastrado!\n\n")
-            cadastrar_novamente = int(input("Deseja cadastrar outro usuário?\n\n1 - Novo usuário\n2 - Sair\n:"));
-            if(cadastrar_novamente == 1):
+        
+        while True:
+            try:
+                nome_usuario = str(input("\nNome:"));
+                if not nome_usuario:
+                    print("ERRO: Nome usuário não pode ser vazio!! Tente novamente");
+                else:
+                    break;
+            except ValueError:
+                print("ERRO: Valor nome inválido! Tente novamente")        
+           
+        while True:        
+            try:        
+                idade_usuario = int(input("Idade:"));
+                if (idade_usuario < 0):
+                    print("ERRO: idade usuário não pode ser negativa!! Tente novamente");
+                    if not idade_usuario:
+                        print("ERRO: Idade usuário não pode ser vazio!! Tente novamente ")
+                else:
+                    break;   
+            except ValueError:
+                 print("ERRO: Valor idade inválido! Tente novamente");
+        
+        while True:
+            try:
+                email_usuario = input("Email:");
+                if '@'not in email_usuario:
+                    print("ERRO: Email inválido");
+                else:
+                    break;
+            except ValueError:
+                print("ERRO: Valor email inválido! Tente novamente")
+            
+        dados_usuario= {'id': id_usuario,'nome': nome_usuario,'idade': idade_usuario,'email': email_usuario}
+        dados_usuario_lista.append(dados_usuario)
+        print("Usuário cadastrado!\n\n")
+        cadastrar_novamente = int(input("Deseja cadastrar outro usuário?\n\n1 - Novo usuário\n2 - Sair\n:"));
+        if(cadastrar_novamente == 1):
                 continue
-            elif(cadastrar_novamente == 2):
-                print(dados_usuario_lista)
+        elif(cadastrar_novamente == 2):
                 break;
-        except ValueError:
-            print("ERRO: Valor inválido! Tente novamente")
+        
            
             
-def usuarioCadastrados():
+def listar_usuarios():
     print("---USUÁRIOS CADASTRADOS---\n")
     for usuario in dados_usuario_lista:
             print("--" * 10);
@@ -59,7 +85,7 @@ def usuarioCadastrados():
         try:    
             opcoes_visualizar = int(input("Deseja sair?\n\n1 - Visualizar novamente\n2 - Sair\n:"));
             if(opcoes_visualizar == 1):
-                usuarioCadastrados()
+                listar_usuarios()
                 break;
             elif(opcoes_visualizar == 2):
                 break;
@@ -70,7 +96,7 @@ def usuarioCadastrados():
             print("ERRO: Valor incorreto! Digite Novamente\n")
             
     
-def removerUsuario():
+def remover_usuario():
    print("---Remover usuário---\n")
    
    
@@ -94,7 +120,7 @@ def removerUsuario():
             try:
                 opcoes_remover = int(input("\nDeseja sair?\n1 - Remover outro usuário\n2 - Sair\n:"))
                 if(opcoes_remover == 1):
-                    removerUsuario();
+                    remover_usuario();
                     break;
                 elif(opcoes_remover == 2):
                     break;
