@@ -58,7 +58,7 @@ class SistemaGerenciamento:
                 try:
                     email = input("Email:");
                     if '@'not in email or '.' not in email:
-                        print("ERRO: Email inválido");
+                        print("ERRO: Email inválido");  
                     else:
                         break;
                 except ValueError:
