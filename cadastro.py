@@ -1,137 +1,140 @@
+class Usuario:
+    def __init__(self, id_usuario, nome, idade, email):
+        self.id = id_usuario;
+        self.nome = nome;
+        self.idade = idade;
+        self.email = email;
 
-dados_usuario = {};
-dados_usuario_lista = [];
-def sistema():
+class SistemaGerenciamento:
+    def __init__(self):
+        self.usuarios = []
+        self.proximo_id = 1;
     
-    while True:
-        print("\n--Sistema de Cadastramento--\n");
-        try:
-            opcoes = int(input("Opções:\n1 - Cadastrar usuário\n2 - Usuários cadastrados\n3 - Remove usuário cadastrado\n4 - Sair\n:"));
-            if(opcoes == 1):
-                cadastrar_usuario();
-            elif(opcoes == 2):
-                listar_usuarios();
-            elif(opcoes == 3): 
-                remover_usuario();
-            elif(opcoes == 4):
-                break;
-            else:
-                print("Número digitado não corresponde as opções. Digite novamente!\n");         
-        except ValueError:
-            print("ERRO: Valor inválido! Digite novamente\n")
-def gerar_novo_id():
-    maior_id = 0;
-    
-    for usuario_gerarID in dados_usuario_lista:
-        if(usuario_gerarID['id'] > maior_id):
-            maior_id = usuario_gerarID['id'];
-    return maior_id + 1;
-def cadastrar_usuario():
-    
-    print("--- CADASTRO USUÁRIO ---\n")
-    while True:
-        id_usuario = gerar_novo_id()
-        
+    def iniciar(self):
         while True:
             try:
-                nome_usuario = str(input("\nNome:"));
-                if not nome_usuario:
-                    print("ERRO: Nome usuário não pode ser vazio!! Tente novamente");
-                else:
+                opcoes = int(input("--- SISTEMA DE CADASTRO ---\n\n1 - CADASTRAR USUÁRIO\n2 - VISUALIZAR CADASTROS\n3 - REMOVER CADASTRO\n4 - SAIR\n:"))
+                if(opcoes == 1):
+                    self.cadastrar_usuario();
+                elif(opcoes == 2):
+                    self.listar_usuarios();
+                elif(opcoes == 3):
+                    self.remover_usuario();
+                elif(opcoes == 4):
                     break;
-            except ValueError:
-                print("ERRO: Valor nome inválido! Tente novamente")        
-           
-        while True:        
-            try:        
-                idade_usuario = int(input("Idade:"));
-                if (idade_usuario < 0):
-                    print("ERRO: idade usuário não pode ser negativa!! Tente novamente");
                 else:
-                    break;   
+                    print("ERRO: Opção não existe!! Tente novamente")
+                               
             except ValueError:
-                 print("ERRO: Valor idade inválido! Tente novamente");
+                print("ERRO: Valor inválido! Tente novamente ")
+    
+    def cadastrar_usuario(self):
+        print("--- CADASTRO USUÁRIO --- ")
         
         while True:
-            try:
-                email_usuario = input("Email:");
-                if '@'not in email_usuario or '.' not in email_usuario:
-                    print("ERRO: Email inválido");
-                else:
-                    break;
-            except ValueError:
-                print("ERRO: Valor email inválido! Tente novamente")
             
-        dados_usuario= {'id': id_usuario,'nome': nome_usuario,'idade': idade_usuario,'email': email_usuario}
-        dados_usuario_lista.append(dados_usuario)
-        print("Usuário cadastrado!\n\n")
-        cadastrar_novamente = int(input("Deseja cadastrar outro usuário?\n\n1 - Novo usuário\n2 - Sair\n:"));
-        if(cadastrar_novamente == 1):
+            while True:
+                try:
+                    nome = str(input("\nNome:"));
+                    if not nome:
+                        print("ERRO: Nome usuário não pode ser vazio!! Tente novamente");
+                    else:
+                        break;
+                except ValueError:
+                    print("ERRO: Valor nome inválido! Tente novamente")  
+                
+                
+            while True:
+                try:        
+                    idade = int(input("Idade:"));
+                    if (idade < 0):
+                        print("ERRO: idade usuário não pode ser negativa!! Tente novamente");
+                    else:
+                        break;   
+                except ValueError:
+                    print("ERRO: Valor idade inválido! Tente novamente");
+            
+            while True:
+                try:
+                    email = input("Email:");
+                    if '@'not in email or '.' not in email:
+                        print("ERRO: Email inválido");
+                    else:
+                        break;
+                except ValueError:
+                    print("ERRO: Valor email inválido! Tente novamente")
+            
+            usuario = Usuario(self.proximo_id,nome,idade,email);
+            self.proximo_id += 1
+            self.usuarios.append(usuario)
+                
+            print("Usuário cadastrado!\n\n")
+            self.cadastrar_novamente = int(input("Deseja cadastrar outro usuário?\n\n1 - Novo usuário\n2 - Sair\n:"));
+            
+            if(self.cadastrar_novamente == 1):
                 continue
-        elif(cadastrar_novamente == 2):
+            elif(self.cadastrar_novamente == 2):
                 break;
-        
-def listar_usuarios():
-    if not dados_usuario_lista:
-        print("Nenhum usuário cadastrado.")
-        return
-    while True:
-        print("---USUÁRIOS CADASTRADOS---\n")
-        print("\n" * 2);
-        for usuario in dados_usuario_lista:
-                print("--" * 10);
-                print(f"Nome: {usuario['nome']}\nIdade: {usuario['idade']}\nEmail: {usuario['email']}\n");
-        
-        try:    
-            opcoes_visualizar = int(input("Deseja sair?\n\n1 - Visualizar novamente\n2 - Sair\n:"));
-            if(opcoes_visualizar == 1):
-                    continue
-            elif(opcoes_visualizar == 2):
-                    break;
-            else:
-                    print("Digito não corresponde as opções! Digite novamente.\n")
-        except ValueError:
-                print("ERRO: Valor incorreto! Digite Novamente\n")
             
-    
-def remover_usuario():
-   print("---Remover usuário---\n")
-   
-  
-   while True:
-        if not dados_usuario_lista:
+    def listar_usuarios(self):
+        if not self.usuarios:
             print("Nenhum usuário cadastrado.")
             return
-        for usuario_remover in dados_usuario_lista:
-                print(f"ID: {usuario_remover['id']}\nNome: {usuario_remover['nome']}\n");
-                
-        try:
-                remover_id = int(input("Digite o ID do usuário que deseja remover: "));
-                usuario_antes = len(dados_usuario_lista);
-
-                for contador, usuarios_listas in enumerate(dados_usuario_lista):
-                    if usuarios_listas.get('id') == remover_id:
-                        dados_usuario_lista.pop(contador)
-                        break;        
-    
-                if len(dados_usuario_lista) < usuario_antes:    
-                    print(f"Usuário {remover_id} removido!!\n")
-                else:
-                    print(f"ERRO: Usuário com ID {remover_id} não foi encontrado!")
-        except ValueError:
-                print("ERRO: Digite um valor válido de ID\n")
-                    
-        try:
-            opcoes_remover = int(input("\nDeseja sair?\n1 - Remover outro usuário\n2 - Sair\n:"))
-            if(opcoes_remover == 1):
-                continue
-            elif(opcoes_remover == 2):
-                break;
-            else: 
-                print("ERRO: Valor não corresponde às opções! Digite novamente.");
-        except ValueError:
-                        print("ERRO: Valor incorreto! Digite Novamente\n")
         
-       
+        while True:
+            print("---USUÁRIOS CADASTRADOS---\n")
+            print();
+            for usuario_lista in self.usuarios:
+                    print("--" * 10);
+                    print(f"ID: {usuario_lista.id}\nNome: {usuario_lista.nome}\nIdade: {usuario_lista.idade}\nEmail: {usuario_lista.email}\n");
+            
+            try:    
+                opcoes_visualizar = int(input("Deseja sair?\n\n1 - Visualizar novamente\n2 - Sair\n:"));
+                if(opcoes_visualizar == 1):
+                        continue
+                elif(opcoes_visualizar == 2):
+                        break;
+                else:
+                        print("Digito não corresponde as opções! Digite novamente.\n")
+            except ValueError:
+                    print("ERRO: Valor incorreto! Digite Novamente\n")
+        
+    def remover_usuario(self):
+        print("---Remover usuário---\n")
+        while True:
+                if not self.usuarios:
+                    print("Nenhum usuário cadastrado.")
+                    return
+                for usuario_remover in self.usuarios:
+                        print(f"\nID: {usuario_remover.id}\nNome: {usuario_remover.nome}\n");
+                        
+                try:
+                        id_remover = int(input("Digite o ID do usuário que deseja remover: "));
+                        usuario_antes = len(self.usuarios);
 
-sistema()
+                        for contador, usuarios_listas in enumerate(self.usuarios):
+                            if usuarios_listas.id == id_remover:
+                                self.usuarios.pop(contador)
+                                break;        
+            
+                        if len(self.usuarios) < usuario_antes:    
+                            print(f"\nUsuário {id_remover} removido!!\n")
+                        else:
+                            print(f"\nERRO: Usuário com ID {id_remover} não foi encontrado!")
+                except ValueError:
+                        print("ERRO: Digite um valor válido de ID\n")
+                            
+                try:
+                    opcoes_remover = int(input("\nDeseja sair?\n1 - Remover outro usuário\n2 - Sair\n:"))
+                    if(opcoes_remover == 1):
+                        continue
+                    elif(opcoes_remover == 2):
+                        break;
+                    else: 
+                        print("\nERRO: Valor não corresponde às opções! Digite novamente.\n");
+                except ValueError:
+                                print("\nERRO: Valor incorreto! Digite Novamente\n")
+
+
+sistema = SistemaGerenciamento()
+sistema.iniciar()
