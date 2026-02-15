@@ -1,20 +1,25 @@
 from fastapi import FastAPI
 import uvicorn
-from pydantic import BaseModel
-import cadastro
+from cadastro import SistemaGerenciamento
+from usuario import Usuario
 
 app = FastAPI()
-sistema = cadastro.SistemaGerenciamento()
 
+sistema = SistemaGerenciamento();
 
-class UsuarioEntrada():
-    nome: str
-    idade: int
-    email: str
-    
-@app.get("/cadastro")
-def read_cadastro(cadastro_):
-    return {"Hello": "Word"}
+@app.get("/sistema-cadastro")
+def exibir_listas():
+    return sistema.listar_usuarios();
 
-if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, log_level="info")
+@app.post("/sistema-cadastro")
+def criar_usuario(usuario: Usuario):
+    sistema.cadastrar_usuario(usuario)
+    return {"mensagem: Usuário cadastrado!"}
+
+@app.delete("/sistema-cadastro/{id_usuario}")
+def remover_usuario(id_usuario: int):
+    removido = sistema.remover_usuario(id_usuario);
+
+    if not removido:
+        raise Exception(status_code = 404, detail="Usuario não encontrado!")
+    return {"mensagem: Usuário removido com sucesso!"}
