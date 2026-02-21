@@ -1,98 +1,92 @@
-# Sistema de Cadastro de Usuários em Python (POO)
+Sistema de Cadastro de Usuários — Python (POO + API)
 
-Este projeto é um **sistema de cadastro de usuários em Python**, executado no terminal, desenvolvido com o objetivo de praticar **lógica de programação**, **organização de código** e **Programação Orientada a Objetos (POO)**.
+Este projeto começou como um sistema de cadastro executado no terminal para praticar Programação Orientada a Objetos (POO) em Python.
 
-⚠️ **Importante:** este projeto é uma **atualização/refatoração** de uma versão anterior desenvolvida de forma procedural.
+Posteriormente, foi evoluído para uma API REST utilizando FastAPI, aplicando conceitos de backend e estruturação de aplicações web.
 
-Inicialmente, o sistema foi implementado sem o uso de POO. Posteriormente, todo o código foi **refatorado para Programação Orientada a Objetos**, com foco em melhorar a legibilidade, a manutenção e a separação de responsabilidades.
+O objetivo do projeto é consolidar fundamentos antes de avançar para banco de dados e arquitetura mais robusta.
 
----
+🚀 Funcionalidades
+✅ Versão Terminal (POO)
 
-## 🚀 Funcionalidades
+Cadastro de usuários
 
-* Cadastro de usuários
-* Listagem de usuários cadastrados
-* Remoção de usuários pelo ID
-* Geração automática de IDs únicos
-* Validação de dados (nome, idade e email)
-* Tratamento de erros com `try/except`
+Listagem
 
----
+Remoção por ID
 
-## 🧠 Conceitos aplicados
+Geração automática de ID
 
-* Programação Orientada a Objetos (POO)
-* Classes e objetos
-* Encapsulamento
-* Separação de responsabilidades
-* Estruturas de repetição
-* Estruturas condicionais
-* Manipulação de listas
+Validação básica de dados
 
----
+✅ Versão API (FastAPI)
 
-## 🛠️ Tecnologias utilizadas
+CRUD completo (GET, POST, PUT, DELETE)
 
-* Python 3
-* Execução via terminal
+Validação de dados com Pydantic
 
----
+Geração de UUID automático
 
-## ▶️ Como executar o projeto
+Tratamento de erros
 
-1. Certifique-se de ter o **Python 3** instalado:
+Documentação automática via /docs
 
-   ```bash
-   python --version
-   ```
+🧠 Conceitos aplicados
 
-2. Clone o repositório:
+Programação Orientada a Objetos
 
-   ```bash
-   git clone https://github.com/ViniciosVicente/sistema-cadastro.git
-   ```
+API REST
 
-3. Acesse a pasta do projeto:
+Separação de responsabilidades
 
-   ```bash
-   cd sistema-cadastro
-   ```
+Estruturação de projeto
 
-4. Execute o arquivo principal:
+Serialização de dados
 
-   ```bash
-   python cadastro.py
-   ```
+Tratamento de exceções
 
----
+Debug de problemas de tipagem
 
-## 📂 Estrutura do projeto
+🛠 Tecnologias utilizadas
 
-```
-📁 sistema-cadastro
- ├── cadastro_poo.py
- └── README.md
-```
+Python 3
 
----
+FastAPI
 
-## 🔮 Próximos passos
+Uvicorn
 
-* Persistência de dados em arquivo (JSON)
-* Refatoração para melhorar legibilidade (Clean Code)
-* Criação de testes básicos
-* Transformar o sistema em uma **API REST com FastAPI**
+Pydantic
 
----
+▶️ Como executar a API
+1️⃣ Clonar o repositório
+git clone https://github.com/ViniciosVicente/sistema-cadastro.git
+cd sistema-cadastro
+2️⃣ Criar ambiente virtual (opcional, recomendado)
+python -m venv .venv
+source .venv/bin/activate  # Linux/Mac
+3️⃣ Instalar dependências
+pip install fastapi uvicorn
+4️⃣ Executar o servidor
+uvicorn main:app --reload
+5️⃣ Acessar documentação automática
+http://127.0.0.1:8000/docs
+📂 Estrutura do projeto
+sistema-cadastro/
+│
+├── main.py
+├── cadastro.py
+├── usuario.py
+└── README.md
+🔮 Próximos passos
 
-## 📌 Observações
+Integração com banco de dados (SQLite ou PostgreSQL)
 
-Este projeto tem fins educacionais e faz parte do meu processo de aprendizado em Python e backend.
+Implementação de autenticação
 
-Sugestões e feedbacks são sempre bem-vindos 😊
+Criação de testes automatizados
 
----
+Deploy da API
 
-## 👨‍💻 Autor
+👨‍💻 Autor
 
-Desenvolvido por **Vinicios** 🚀
+Desenvolvido por Vinicios
