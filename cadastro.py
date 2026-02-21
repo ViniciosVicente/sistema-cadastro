@@ -19,8 +19,8 @@ class SistemaGerenciamento:
         
         for usuario in self.lista_usuarios:
             if usuario.id == id_usuario:
-                usuario.nome = dados_atualizados.nome,
-                usuario.idade = dados_atualizados.idade,
+                usuario.nome = dados_atualizados.nome
+                usuario.idade = dados_atualizados.idade
                 usuario.email = dados_atualizados.email
                 return usuario
         return None

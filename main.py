@@ -19,6 +19,12 @@ def criar_usuario(usuario: UsuarioCreate):
 
 @app.put("/sistema-cadastro/{id_usuario}")
 def usuario_atualizado(id_usuario: UUID, usuario: UsuarioUpdate):
+    update_dados = sistema.atualizar_usuario(id_usuario, usuario);
+    
+    if not update_dados:
+        raise Exception(status_code = 404, detail="Usuário não encontrado!")
+    return {"mensagem: Usuário atualizado com sucesso!"}
+    
 @app.delete("/sistema-cadastro/{id_usuario}")
 def remover_usuario(id_usuario: UUID):
     removido = sistema.remover_usuario(id_usuario);

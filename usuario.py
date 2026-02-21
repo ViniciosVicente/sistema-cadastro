@@ -6,10 +6,12 @@ class UsuarioCreate(BaseModel):
     nome: str
     idade: int
     email: EmailStr
-class UsuarioUpdate:
+    
+class UsuarioUpdate(BaseModel):
     nome: str
-    idade: str
+    idade: int
     email: EmailStr
+    
 class Usuario(BaseModel):
     id: UUID
     nome: str
