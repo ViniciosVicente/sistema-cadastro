@@ -1,92 +1,102 @@
-Sistema de Cadastro de Usuários — Python (POO + API)
+<div align="center">
 
-Este projeto começou como um sistema de cadastro executado no terminal para praticar Programação Orientada a Objetos (POO) em Python.
+# 🚀 Sistema de Cadastro de Usuários (POO ➔ API)
 
-Posteriormente, foi evoluído para uma API REST utilizando FastAPI, aplicando conceitos de backend e estruturação de aplicações web.
+[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
+[![Pydantic](https://img.shields.io/badge/Pydantic-E92063?style=for-the-badge&logo=pydantic&logoColor=white)](https://docs.pydantic.dev/)
+[![Uvicorn](https://img.shields.io/badge/Uvicorn-499848?style=for-the-badge&logo=gunicorn&logoColor=white)](https://www.uvicorn.org/)
 
-O objetivo do projeto é consolidar fundamentos antes de avançar para banco de dados e arquitetura mais robusta.
+> **Uma jornada de evolução:** de uma aplicação simples de terminal (Orientação a Objetos) para uma API REST moderna e robusta.
 
-🚀 Funcionalidades
-✅ Versão Terminal (POO)
+</div>
 
-Cadastro de usuários
+---
 
-Listagem
+## 📌 Sobre o Projeto
 
-Remoção por ID
+Este projeto tem como objetivo principal consolidar os fundamentos de desenvolvimento backend. Em vez de começar direto com frameworks e bancos de dados complexos, a aplicação evoluiu em etapas: garantindo primeiro a estruturação de pacotes, manipulação de dados em memória e as regras de negócio usando POO, para só então expor essas regras através de uma API.
 
-Geração automática de ID
+### 🛠️ Tecnologias e Ferramentas
 
-Validação básica de dados
+* **Linguagem:** Python 3.x
+* **Framework Web:** FastAPI
+* **Servidor ASGI:** Uvicorn
+* **Validação de Dados:** Pydantic
 
-✅ Versão API (FastAPI)
+---
 
-CRUD completo (GET, POST, PUT, DELETE)
+## ✨ Funcionalidades e Evolução
 
-Validação de dados com Pydantic
+### 💻 1. Versão Terminal (Core POO)
+A base do projeto, focada na lógica de negócio isolada de interfaces web.
+* **Cadastro:** Registro sistemático de usuários em memória.
+* **Gestão:** Listagem e remoção rigorosa baseada em IDs.
+* **Lógica:** Geração automática de identificadores e validações básicas de tipos.
 
-Geração de UUID automático
+### 🌐 2. Versão API (FastAPI)
+A camada web construída sobre o core, expondo a aplicação para o mundo.
+* **CRUD Completo:** Endpoints mapeados para Criar (`POST`), Ler (`GET`), Atualizar (`PUT`) e Deletar (`DELETE`).
+* **Tipagem Forte:** Uso de Pydantic para garantir a integridade dos dados (Request/Response).
+* **Identificação Única:** Implementação de `UUID` para IDs seguros contra colisões e previsibilidade.
+* **Docs Automáticos:** Documentação interativa e testável gerada automaticamente via Swagger UI.
 
-Tratamento de erros
+---
 
-Documentação automática via /docs
+## 🧠 Conceitos Aplicados
 
-🧠 Conceitos aplicados
+Este repositório serve como um laboratório prático para:
 
-Programação Orientada a Objetos
+1.  **Programação Orientada a Objetos (POO):** Encapsulamento e abstração de modelos.
+2.  **Arquitetura REST:** Design semântico de endpoints e uso correto dos verbos HTTP.
+3.  **Clean Code:** Separação clara de responsabilidades (Rotas vs. Regras de Negócio) e tratamento de exceções.
+4.  **Serialização:** Transformação fluida de objetos nativos Python para JSON.
 
-API REST
+---
 
-Separação de responsabilidades
+## 📂 Arquitetura e Estrutura
 
-Estruturação de projeto
-
-Serialização de dados
-
-Tratamento de exceções
-
-Debug de problemas de tipagem
-
-🛠 Tecnologias utilizadas
-
-Python 3
-
-FastAPI
-
-Uvicorn
-
-Pydantic
-
-▶️ Como executar a API
-1️⃣ Clonar o repositório
-git clone https://github.com/ViniciosVicente/sistema-cadastro.git
-cd sistema-cadastro
-2️⃣ Criar ambiente virtual (opcional, recomendado)
-python -m venv .venv
-source .venv/bin/activate  # Linux/Mac
-3️⃣ Instalar dependências
-pip install fastapi uvicorn
-4️⃣ Executar o servidor
-uvicorn main:app --reload
-5️⃣ Acessar documentação automática
-http://127.0.0.1:8000/docs
-📂 Estrutura do projeto
 sistema-cadastro/
-│
-├── main.py
-├── cadastro.py
-├── usuario.py
-└── README.md
-🔮 Próximos passos
+├── main.py        # Ponto de entrada da API, configuração e rotas
+├── cadastro.py    # Lógica de negócio e gerenciamento da base (POO)
+├── models.py      # Definição das classes e esquemas de validação (Pydantic)
+└── README.md      # Documentação do projeto
 
-Integração com banco de dados (SQLite ou PostgreSQL)
+▶️ Como Executar o Projeto
+1. Preparação do Ambiente
+Bash
 
-Implementação de autenticação
+# 1. Clone o repositório
+git clone [https://github.com/ViniciosVicente/sistema-cadastro.git](https://github.com/ViniciosVicente/sistema-cadastro.git)
+cd sistema-cadastro
 
-Criação de testes automatizados
+# 2. Crie um ambiente virtual
+python -m venv .venv
 
-Deploy da API
+# 3. Ative o ambiente virtual
+# No Linux/MacOS:
+source .venv/bin/activate  
+# No Windows:
+# .venv\Scripts\activate   
+2. Instalação e Execução
+Bash
 
-👨‍💻 Autor
+# 1. Instale as dependências necessárias
+pip install fastapi uvicorn pydantic
 
-Desenvolvido por Vinicios
+# 2. Inicie o servidor localmente
+uvicorn main:app --reload
+Acesse a documentação interativa da sua API em: http://127.0.0.1:8000/docs
+
+# Próximos Passos (Roadmap)
+[ ] Integrar com banco de dados relacional (SQLite/PostgreSQL) utilizando SQLAlchemy.
+
+[ ] Implementar camada de segurança e autenticação com JWT.
+
+[ ] Adicionar cobertura de testes unitários utilizando Pytest.
+
+[ ] Criar Dockerfile e docker-compose.yml para Dockerização da aplicação.
+
+<div align="center">
+👨‍💻 Desenvolvido  por <a href="https://www.google.com/search?q=https://github.com/ViniciosVicente">Vinicios Vicente</a>.
+</div>
