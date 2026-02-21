@@ -1,7 +1,17 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
+from uuid import UUID, uuid4
+
+class UsuarioCreate(BaseModel):
+    
+    nome: str
+    idade: int
+    email: EmailStr
+class UsuarioUpdate:
+    nome: str
+    idade: str
+    email: EmailStr
 class Usuario(BaseModel):
-    def __init__(self, id_usuario, nome, idade, email):
-        self.id = id_usuario;
-        self.nome = nome;
-        self.idade = idade;
-        self.email = email;
+    id: UUID
+    nome: str
+    idade: int
+    email: EmailStr
