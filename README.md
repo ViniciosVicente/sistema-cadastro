@@ -57,36 +57,14 @@ Este repositório serve como um laboratório prático para:
 ## 📂 Arquitetura e Estrutura
 
 sistema-cadastro/
-├── main.py        # Ponto de entrada da API, configuração e rotas
-├── cadastro.py    # Lógica de negócio e gerenciamento da base (POO)
-├── models.py      # Definição das classes e esquemas de validação (Pydantic)
-└── README.md      # Documentação do projeto
 
-▶️ Como Executar o Projeto
-1. Preparação do Ambiente
-Bash
+├── main.py        
+├── cadastro.py    
+├── models.py      
+└── README.md      
 
-# 1. Clone o repositório
-git clone [https://github.com/ViniciosVicente/sistema-cadastro.git](https://github.com/ViniciosVicente/sistema-cadastro.git)
-cd sistema-cadastro
 
-# 2. Crie um ambiente virtual
-python -m venv .venv
-
-# 3. Ative o ambiente virtual
-# No Linux/MacOS:
-source .venv/bin/activate  
-# No Windows:
-# .venv\Scripts\activate   
-2. Instalação e Execução
-Bash
-
-# 1. Instale as dependências necessárias
-pip install fastapi uvicorn pydantic
-
-# 2. Inicie o servidor localmente
-uvicorn main:app --reload
-Acesse a documentação interativa da sua API em: http://127.0.0.1:8000/docs
+---
 
 # Próximos Passos (Roadmap)
 [ ] Integrar com banco de dados relacional (SQLite/PostgreSQL) utilizando SQLAlchemy.
