@@ -27,8 +27,8 @@ def usuario_atualizado(id_usuario: UUID, usuario: UsuarioUpdate):
     
 @app.delete("/sistema-cadastro/{id_usuario}")
 def remover_usuario(id_usuario: UUID):
-    removido = sistema.remover_usuario(id_usuario);
+    remove_usuario = sistema.remover_usuario(id_usuario);
 
-    if not removido:
+    if not remove_usuario:
         raise Exception(status_code = 404, detail="Usuario não encontrado!")
     return {"mensagem: Usuário removido com sucesso!"}
