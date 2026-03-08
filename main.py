@@ -1,34 +1,39 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 import uvicorn
 from cadastro import SistemaGerenciamento
 from usuario import Usuario, UsuarioCreate, UsuarioUpdate
 from uuid import UUID
-
+from database import SessionLocal, engine
+import models
+from sqlalchemy.orm import Session
 app = FastAPI()
+
+models.Base.metadata.create_all(bind=engine)
 
 sistema = SistemaGerenciamento();
 
-@app.get("/sistema-cadastro")
-def exibir_listas():
-    return sistema.exibir_usuarios();
+# função para criar uma conexão com o banco
 
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+@app.get("/Sistema-cadastro")
+def listar_usuarios(db: Session = Depends(get_db)):
+    usuarios = db.query(models.UsuarioDB).all()
+    
+    return {f"mensagem:\n{usuarios}\n\n Usuários listados"}
 @app.post("/sistema-cadastro")
-def criar_usuario(usuario: UsuarioCreate):
-    sistema.cadastrar_usuario(usuario)
-    return {"mensagem: Usuário cadastrado!"}
-
-@app.put("/sistema-cadastro/{id_usuario}")
-def usuario_atualizado(id_usuario: UUID, usuario: UsuarioUpdate):
-    update_dados = sistema.atualizar_usuario(id_usuario, usuario);
+def criar_usuario(usuario: UsuarioCreate, db: Session = Depends(get_db)):
     
-    if not update_dados:
-        raise Exception(status_code = 404, detail="Usuário não encontrado!")
-    return {"mensagem: Usuário atualizado com sucesso!"}
+    novo_usuario = models.UsuarioDB(nome=usuario.nome,idade=usuario.idade, email=usuario.email)
     
-@app.delete("/sistema-cadastro/{id_usuario}")
-def remover_usuario(id_usuario: UUID):
-    remove_usuario = sistema.remover_usuario(id_usuario);
+    db.add(novo_usuario)
+    db.commit()
+    db.refresh(novo_usuario)
+    
+    return {f"mensagem:\n\n{novo_usuario}\n\nUsuário cadastrado!"}
 
-    if not remove_usuario:
-        raise Exception(status_code = 404, detail="Usuario não encontrado!")
-    return {"mensagem: Usuário removido com sucesso!"}
