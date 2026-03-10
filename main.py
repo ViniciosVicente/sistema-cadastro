@@ -24,9 +24,9 @@ def get_db():
 @app.get("/Sistema-cadastro")
 def listar_usuarios(db: Session = Depends(get_db)):
     usuarios = db.query(models.UsuarioDB).all()
-    
-    return {f"mensagem:\n{usuarios}\n\n Usuários listados"}
-@app.post("/sistema-cadastro")
+    return {f"mensagem: Usuários listados"}
+
+@app.post("/Sistema-cadastro")
 def criar_usuario(usuario: UsuarioCreate, db: Session = Depends(get_db)):
     
     novo_usuario = models.UsuarioDB(nome=usuario.nome,idade=usuario.idade, email=usuario.email)
@@ -35,5 +35,13 @@ def criar_usuario(usuario: UsuarioCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(novo_usuario)
     
-    return {f"mensagem:\n\n{novo_usuario}\n\nUsuário cadastrado!"}
+    return {f"mensagem: Usuário cadastrado!"}
 
+@app.put("/Sistema-cadastro")
+def atualizar_usuario(usuario: UsuarioUpdate,id, db: Session = Depends(get_db)):
+    
+    usuario_atualizado = models.UsuarioDB(nome=usuario.nome,idade=usuario.idade, email=usuario.email)
+    
+    if not usuario_atualizado:
+        raise Exception(status_code = 404, detail="Usuário não encontrado!")
+    return {f"Usuário atualizado!"}
