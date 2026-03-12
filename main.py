@@ -38,10 +38,14 @@ def criar_usuario(usuario: UsuarioCreate, db: Session = Depends(get_db)):
     return {f"mensagem: Usuário cadastrado!"}
 
 @app.put("/Sistema-cadastro")
-def atualizar_usuario(usuario: UsuarioUpdate,id, db: Session = Depends(get_db)):
+def atualizar_usuario(id: str, usuario: UsuarioUpdate, db: Session = Depends(get_db)):
     
-    usuario_atualizado = models.UsuarioDB(nome=usuario.nome,idade=usuario.idade, email=usuario.email)
+    usuario_db = db.query(models.UsuarioDB).filter(models.UsuarioDB.id == id).first()
     
-    if not usuario_atualizado:
+    if not usuario_db:
         raise Exception(status_code = 404, detail="Usuário não encontrado!")
-    return {f"Usuário atualizado!"}
+    
+    usuario_db.nome = usuario.nome
+    usuario_db.idade = usuario.idade
+    usuario_db.email = usuario.email
+    return {f"Usuário atualizado!, usuário:{usuario_db}"}
