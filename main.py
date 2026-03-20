@@ -52,3 +52,15 @@ def atualizar_usuario(id: str, usuario: UsuarioUpdate, db: Session = Depends(get
     db.commit()
     db.refresh(usuario_db)
     return usuario_db   
+
+@app.delete("/Sistemas-cadastro/{id}")
+def deletar_usuario(id:str,db: Session = Depends(get_db)):
+
+    usuario_db = db.query(models.UsuarioDB).filter(models.UsuarioDB.id == id).first()
+    if not usuario_db:
+        raise Exception(status_code = 404, detail="Usuário não encontrado!")
+    
+    db.delete(usuario_db)
+    db.commit()
+    
+    return {"mensagem: Usuário deletado!"}
