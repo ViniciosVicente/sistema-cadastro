@@ -24,7 +24,7 @@ def get_db():
 @app.get("/Sistema-cadastro")
 def listar_usuarios(db: Session = Depends(get_db)):
     usuarios = db.query(models.UsuarioDB).all()
-    return {f"mensagem: Usuários listados"}
+    return usuarios
 
 @app.post("/Sistema-cadastro")
 def criar_usuario(usuario: UsuarioCreate, db: Session = Depends(get_db)):
