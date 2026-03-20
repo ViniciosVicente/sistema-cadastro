@@ -37,8 +37,8 @@ def criar_usuario(usuario: UsuarioCreate, db: Session = Depends(get_db)):
     
     return {f"mensagem: Usuário cadastrado!"}
 
-@app.put("/Sistema-cadastro")
-def atualizar_usuario(id, usuario: UsuarioUpdate, db: Session = Depends(get_db)):
+@app.put("/Sistema-cadastro/{id}")
+def atualizar_usuario(id: str, usuario: UsuarioUpdate, db: Session = Depends(get_db)):
     
     usuario_db = db.query(models.UsuarioDB).filter(models.UsuarioDB.id == id).first()
     
@@ -48,4 +48,7 @@ def atualizar_usuario(id, usuario: UsuarioUpdate, db: Session = Depends(get_db))
     usuario_db.nome = usuario.nome
     usuario_db.idade = usuario.idade
     usuario_db.email = usuario.email
-    return {f"Usuário atualizado!, usuário:{usuario_db}"}
+    
+    db.commit()
+    db.refresh(usuario_db)
+    return usuario_db   
