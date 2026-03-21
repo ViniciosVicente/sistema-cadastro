@@ -1,0 +1,15 @@
+# Ambiente virtual
+venv/
+
+# Cache do Python
+__pycache__/
+*.pyc
+
+# Banco de dados
+*.db
+
+# Arquivos de ambiente
+.env
+
+# Alembic (opcional ignorar cache)
+alembic/__pycache__/
