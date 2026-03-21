@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 import uvicorn
 from cadastro import SistemaGerenciamento
 from usuario import Usuario, UsuarioCreate, UsuarioUpdate
@@ -43,7 +43,7 @@ def atualizar_usuario(id: str, usuario: UsuarioUpdate, db: Session = Depends(get
     usuario_db = db.query(models.UsuarioDB).filter(models.UsuarioDB.id == id).first()
     
     if not usuario_db:
-        raise Exception(status_code = 404, detail="Usuário não encontrado!")
+        raise HTTPException(status_code = 404, detail="Usuário não encontrado!")
     
     usuario_db.nome = usuario.nome
     usuario_db.idade = usuario.idade
@@ -51,14 +51,15 @@ def atualizar_usuario(id: str, usuario: UsuarioUpdate, db: Session = Depends(get
     
     db.commit()
     db.refresh(usuario_db)
+    
     return usuario_db   
 
-@app.delete("/Sistemas-cadastro/{id}")
+@app.delete("/Sistema-cadastro/{id}")
 def deletar_usuario(id:str,db: Session = Depends(get_db)):
 
     usuario_db = db.query(models.UsuarioDB).filter(models.UsuarioDB.id == id).first()
     if not usuario_db:
-        raise Exception(status_code = 404, detail="Usuário não encontrado!")
+        raise HTTPException(status_code = 404, detail="Usuário não encontrado!")
     
     db.delete(usuario_db)
     db.commit()
