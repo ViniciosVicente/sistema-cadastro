@@ -6,6 +6,8 @@ from uuid import UUID
 from database import SessionLocal, engine
 import models
 from sqlalchemy.orm import Session
+from seguranca import gerar_hash
+
 app = FastAPI()
 
 models.Base.metadata.create_all(bind=engine)
@@ -29,7 +31,7 @@ def listar_usuarios(db: Session = Depends(get_db)):
 @app.post("/Sistema-cadastro")
 def criar_usuario(usuario: UsuarioCreate, db: Session = Depends(get_db)):
     
-    novo_usuario = models.UsuarioDB(nome=usuario.nome,idade=usuario.idade, email=usuario.email)
+    novo_usuario = models.UsuarioDB(nome=usuario.nome,idade=usuario.idade, email=usuario.email, senha=usuario.senha)
     
     db.add(novo_usuario)
     db.commit()
@@ -48,6 +50,7 @@ def atualizar_usuario(id: str, usuario: UsuarioUpdate, db: Session = Depends(get
     usuario_db.nome = usuario.nome
     usuario_db.idade = usuario.idade
     usuario_db.email = usuario.email
+    usuario_db.senha = usuario.senha
     
     db.commit()
     db.refresh(usuario_db)

@@ -1,15 +1,20 @@
 from usuario import Usuario
 from uuid import uuid4, UUID
+from seguranca import gerar_hash
+
 class SistemaGerenciamento:
     def __init__(self):
         self.lista_usuarios = []
         
     def cadastrar_usuario(self, dados_usuario):
+
+        
         novo_usuario = Usuario(
             id=uuid4(),
             nome=dados_usuario.nome,
             idade=dados_usuario.idade,
-            email=dados_usuario.email
+            email=dados_usuario.email,
+            senha=dados_usuario.senha
         )
         self.lista_usuarios.append(novo_usuario);
     def exibir_usuarios(self):
@@ -22,6 +27,8 @@ class SistemaGerenciamento:
                 usuario.nome = dados_atualizados.nome
                 usuario.idade = dados_atualizados.idade
                 usuario.email = dados_atualizados.email
+                usuario.senha = dados_atualizados.senha
+                
                 return usuario
         return None
         

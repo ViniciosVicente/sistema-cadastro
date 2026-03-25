@@ -9,3 +9,4 @@ class UsuarioDB(Base):
     nome = Column(String)
     idade = Column(Integer)
     email = Column(String)
+    senha = Column(String)
